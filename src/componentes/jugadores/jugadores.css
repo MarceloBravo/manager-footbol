@@ -1,0 +1,38 @@
+.jugador-hscroll{
+    height: 160px;
+}
+
+.btn{
+    margin: 0px 10px;
+    border-radius: 50% !important;
+}
+
+.h-scroll{
+    width: 95%;
+    overflow: auto;
+    left: 2.5%;
+    position: relative;
+    border-style: solid;
+    border-color: #4476a2;
+    padding: 10px 0px;
+}
+
+.jugadores-container{
+    display: flex;
+    width: fit-content;
+}
+
+.jugador{
+    width: 200px;
+}
+
+h4{
+    font-size: inherit !important;    
+}
+
+.jugador > img{
+    border-radius: 100%;
+    width: 50px;
+    height: 50px;
+}
+
