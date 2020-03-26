@@ -7,6 +7,16 @@
     border-radius: 50% !important;
 }
 
+.link-to-admin{
+    position: absolute;
+    right: 30px;
+    top: 50px;
+}
+
+.btn-admin{
+    border-radius: 10px !important;
+}
+
 .h-scroll{
     width: 95%;
     overflow: auto;

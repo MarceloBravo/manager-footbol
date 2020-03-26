@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button } from 'react-bootstrap';
+import { types } from '../../reducers/types';
 import './titulares.css';
 
 const Titulares = ({titulares, quitarTitular}) =>(
@@ -11,8 +12,8 @@ const Titulares = ({titulares, quitarTitular}) =>(
                 <div className="titulares-controller">
                 {                
                     titulares.map(t => 
-                        <article className="titular" key={t.id}>
-                            <img src={t.foto} alt={t.id}/>
+                        <article className="titular" key={t.key}>
+                            <img src={t.foto} alt={t.nombre}/>
                             <h4>{t.nombre}</h4>
                             <Button variant="danger" className="btn-eliminar" onClick={() => quitarTitular(t)}>X</Button>
                         </article>
@@ -30,7 +31,7 @@ const mapStateToProps = (state) => ({
 const mapDisPatchToProps = dispatch => ({
     quitarTitular(jugador){
         dispatch({
-                type: 'ELIMINAR_TITULAR',
+                type: types.ELIMINAR_TITULAR,
                 jugador
         })
     }

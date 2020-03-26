@@ -1,0 +1,34 @@
+.pagination-buttons{
+    padding: 0px 5% !important;
+}
+
+.table{
+    color: white !important;
+    width: 90% !important;
+    margin: 0px 5%;
+}
+
+.col-id{
+    width: 10%;
+}
+
+.col-nombre{
+    text-align: left;
+}
+
+.col-foto{
+    width: 150px;
+}
+
+.col-accion{
+    width: 215px;
+}
+
+.col-foto > img{
+    height: 50px;
+    width: 50px;
+}
+
+.edit-button, .delete-button{
+    border-radius: 10px !important;
+}
