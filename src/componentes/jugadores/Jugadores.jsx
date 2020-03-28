@@ -1,23 +1,27 @@
 import React from 'react'
 import { Button, ButtonToolbar } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './jugadores.css';
 
-function Jugadores({jugadores, agregarTitular, agregarSuplente}){    //IMPORTANTE: Los parametros deben estar entre parentesis de llave ya que no son props
+function Jugadores({jugadores, datosGrilla, agregarTitular, agregarSuplente, cargarDatosGrilla}){    //IMPORTANTE: Los parametros deben estar entre parentesis de llave ya que no son props
     
     return (
         <section>
             <h2>Jugadores</h2>
+            <Link to={'/jugadores'} className="link-to-admin">
+                <Button variant="primary" className="btn-admin" onClick={() => cargarDatosGrilla(datosGrilla)}>Administrar jugadores</Button>
+            </Link>
             <div className="h-scroll jugador-hscroll">
-                <div className="jugadores-container">
+                <div className="jugadores-container">                
                 {                
                     jugadores.map(j => (
-                        <article className="jugador" key={ j.id }>
+                        <article className="jugador" key={ j.key }>
                             <img src={ j.foto } alt={ j.nombre }/>
                             <h4>{ j.nombre }</h4>
                             <ButtonToolbar>
-                                <Button variant="success" onClick={() => agregarTitular(j) }>Titular</Button>
-                                <Button variant="primary" onClick={() => agregarSuplente(j) }>Suplente</Button>
+                                <Button variant="success" onClick={() => agregarTitular(j) } className="btn-titular">Titular</Button>
+                                <Button variant="primary" onClick={() => agregarSuplente(j) } className="btn-suplente">Suplente</Button>
                             </ButtonToolbar>        
                         </article>
                         )
@@ -30,7 +34,8 @@ function Jugadores({jugadores, agregarTitular, agregarSuplente}){    //IMPORTANT
 }
 
 const mapStateToProps = (state) =>({
-    jugadores: state.jugadores
+    jugadores: state.jugadores,
+    datosGrilla: state.datos
 });
 
 const mapDispatcToProps = (dispatch) =>({    
@@ -46,6 +51,12 @@ const mapDispatcToProps = (dispatch) =>({
                 type: 'AGREGAR_SUPLENTE',
                 jugador
             })
+        },
+        cargarDatosGrilla(datosGrid){
+            dispatch({
+                type: 'OBTENER_DATOS_GRILLA',
+                datosGrid
+            });
         }
 })
 
