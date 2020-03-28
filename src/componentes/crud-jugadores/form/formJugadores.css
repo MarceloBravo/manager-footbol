@@ -1,3 +1,12 @@
+.input-rut{
+    width: 140px !important;
+}
+
+.error-span{
+    float: left;
+    color: #efff00;
+}
+
 .btnGrabar, .btnEliminar, .btnVolver{
     border-radius: 5% !important;    
 }

@@ -10,7 +10,7 @@ function Jugadores({jugadores, datosGrilla, agregarTitular, agregarSuplente, car
         <section>
             <h2>Jugadores</h2>
             <Link to={'/jugadores'} className="link-to-admin">
-                <Button variant="primary" className="btn-admin" onClick={() => cargarDatosGrilla(datosGrilla)}>Nuevo</Button>
+                <Button variant="primary" className="btn-admin" onClick={() => cargarDatosGrilla(datosGrilla)}>Administrar jugadores</Button>
             </Link>
             <div className="h-scroll jugador-hscroll">
                 <div className="jugadores-container">                
@@ -20,8 +20,8 @@ function Jugadores({jugadores, datosGrilla, agregarTitular, agregarSuplente, car
                             <img src={ j.foto } alt={ j.nombre }/>
                             <h4>{ j.nombre }</h4>
                             <ButtonToolbar>
-                                <Button variant="success" onClick={() => agregarTitular(j) }>Titular</Button>
-                                <Button variant="primary" onClick={() => agregarSuplente(j) }>Suplente</Button>
+                                <Button variant="success" onClick={() => agregarTitular(j) } className="btn-titular">Titular</Button>
+                                <Button variant="primary" onClick={() => agregarSuplente(j) } className="btn-suplente">Suplente</Button>
                             </ButtonToolbar>        
                         </article>
                         )

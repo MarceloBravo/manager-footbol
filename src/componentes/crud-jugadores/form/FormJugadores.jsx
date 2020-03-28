@@ -4,6 +4,7 @@ import { useParams, Link, useHistory } from 'react-router-dom'
 import { find, deleteRecord, insertRecord, updateRecord } from '../../../data/Data';
 import { connect } from 'react-redux';
 import { types } from '../../../reducers/types';
+import { validaciones } from './validaciones';
 import './formJugadores.css';
 
 function FromJugadores({datos, rdxInsertarRegistros, rdxActualizarRegistro, rdxEliminarRegistro, cargarDatosGrilla}){    
@@ -14,6 +15,7 @@ function FromJugadores({datos, rdxInsertarRegistros, rdxActualizarRegistro, rdxE
     const [ foto, setFoto ] = useState('');
     const [ findRecord, setFindRecord  ] = useState(true);
     let history = useHistory();
+    const [ errors, setErrors ] = useState({})
 
     useEffect(() =>{
         if(findRecord && id !== 'nuevo'){
@@ -35,9 +37,15 @@ function FromJugadores({datos, rdxInsertarRegistros, rdxActualizarRegistro, rdxE
         }
     }
 
-    const grabar = (e) => {
-        if(window.confirm("¿Desea grabar el registro?")){
-           (id !== 'nuevo' ? actualizar() : insertar());
+    async function grabar(e){  
+        const arrErrors = await validaciones({rut: rut, nombre: nombre, foto: foto});
+        setErrors(arrErrors);
+        if( JSON.stringify(arrErrors) === "{}"){
+            if(window.confirm("¿Desea grabar el registro?")){
+                (id !== 'nuevo' ? actualizar() : insertar());
+            }
+        }else{
+            alert("Datos no válidos");
         }
     }
     
@@ -86,8 +94,16 @@ function FromJugadores({datos, rdxInsertarRegistros, rdxActualizarRegistro, rdxE
                     <Form.Label column sm={2}>
                     Rut:
                     </Form.Label>
-                    <Col sm={10}>
-                    <Form.Control type="text" placeholder="Ej. 12345678-9" value={rut} onChange={e =>setRut(e.target.value)}/>
+                    <Col sm={5}>
+                    <Form.Control 
+                        type="text" 
+                        placeholder="Ej. 12345678-9" 
+                        value={rut} 
+                        onChange={e =>setRut(e.target.value)} 
+                        maxLength="11" 
+                        className="input-rut" 
+                    />
+                    {errors.rut && <span className="error-span"> {errors.rut} </span>}
                     </Col>
                 </Form.Group>
 
@@ -95,9 +111,17 @@ function FromJugadores({datos, rdxInsertarRegistros, rdxActualizarRegistro, rdxE
                     <Form.Label column sm={2}>
                     Nombre:
                     </Form.Label>
-                    <Col sm={10}>
-                    <Form.Control type="text" placeholder="Nombre" value={nombre} onChange={e => setNombre(e.target.value)}/>
+                    <Col sm={5}>
+                        <Form.Control 
+                            type="text" 
+                            placeholder="Nombre" 
+                            value={nombre} 
+                            onChange={e => setNombre(e.target.value)} 
+                            maxLength="35"
+                        />
+                        {errors.nombre && <span className="error-span"> {errors.nombre} </span>}
                     </Col>
+                    
                 </Form.Group>
 
                 <Form.Group as={Row} controlId="formHorizontalPassword">
@@ -105,13 +129,19 @@ function FromJugadores({datos, rdxInsertarRegistros, rdxActualizarRegistro, rdxE
                     Foto
                     </Form.Label>
                     <Col sm={10}>
-                    <Form.Control type="text" placeholder="Foto" value={foto} onChange={e => setFoto(e.target.value)}/>
+                        <Form.Control 
+                            type="text" 
+                            placeholder="Foto" 
+                            value={foto} 
+                            onChange={e => setFoto(e.target.value)}
+                        />
+                        {errors.foto && <span className="error-span"> {errors.foto} </span>}
                     </Col>
                 </Form.Group>
 
                 <Form.Group as={Row} className="button-group">
                     
-                    <Button type="button" variant="success" className="btnGrabar" onClick={() =>grabar()}>Grabar</Button>
+                    <Button type="button" variant="info" className="btnGrabar" onClick={() =>grabar()}>Grabar</Button>
                     
                     <Button type="button" variant="danger" className="btnEliminar" onClick={() => eliminar() }>Eliminar</Button>
                     
